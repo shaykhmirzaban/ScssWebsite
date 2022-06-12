@@ -1,0 +1,272 @@
+@use "../util" as u;
+
+@mixin flexBox ($JC) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: $JC;
+    align-items: center;
+}
+
+@mixin  buttons ($outlineColor, $bgColor) {
+    width: 120px;
+    height: 40px;
+    border-radius: 30px;
+    background: $bgColor;
+    color: var(--light-white);
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: 2px solid $outlineColor;
+    outline-offset: 2px;
+}
+
+@mixin budget () {
+    width: 110px;
+    height: 65px;
+    border-radius: 10px;
+    background-color: var(--white);
+    box-shadow: 0 0 5px 0 #0e1b2324;
+    position: absolute;
+    z-index: 111111;
+    @include flexBox(center);
+    font-size: 1.7rem;
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+
+.navbar{
+    width: 90%;
+    padding: 1rem;
+    margin: 0 auto;
+    @include flexBox(space-between);
+
+    .logo{
+        h1{
+            color: var(--dark-blue);
+            text-transform: lowercase;
+            font-size: 2rem;
+        }
+    }
+    .started-button{
+        button{
+            @include buttons(var(--dark-blue), var(--dark-blue) );
+        }
+        button:hover{
+            background: linear-gradient(48deg, rgb(0, 0, 0) 0%, rgb(162, 10, 40) 100%);
+        }
+        
+    }
+}
+
+.cover{
+    width: 90%;
+    margin: 0 auto;
+    @include flexBox(center);
+    .col-1, .col-2{
+        width: 50%;
+        height: 500px;
+        @include flexBox(center);
+    }
+    .col-1{
+        h1{
+            font-size: clamp(2.5rem, 1.5rem + 2vw, 3.5rem);
+            color: var(--dark-blue);
+            padding: 1rem 0;
+        }
+        p{
+            font-size: clamp(1rem, 1rem + 2vw, 1.3em);
+            color: var(--light-grey);
+            padding: 1rem 0;
+        }
+        button{
+            @include buttons(#970b28, linear-gradient(48deg, rgba(0,0,0,1) 0%, rgba(162,10,40,1) 100%));
+        }
+        button:hover{
+            background: linear-gradient(235deg, rgb(0, 0, 0) 0%, rgb(162, 10, 40) 100%);
+        }
+    }
+    .col-2{
+        .image{
+            padding: 0.8rem;
+            border-radius: 65px;
+            box-shadow: inset 0 0 0px 5px var(--dark-blue);
+            outline: 3px solid var(--rad);
+            outline-offset: 2px;
+            position: relative;
+            &::before{
+                content: "1,451";
+                @include budget();
+                top: 0;
+                left: -70px;
+            }
+            &::after {
+                content: "29K";
+                @include budget();
+                bottom: 1rem;
+                right: -70px;
+            }
+        }
+        img{
+            width: 250px;
+            border-radius: 50px;
+            box-shadow: 0 0 10px 0 #010432;
+            outline: 3px solid #a20a28;
+            outline-offset: 3px;
+        }
+    }
+
+    @include u.breakpoints (apna) {
+        &{
+            flex-direction: column;
+
+            .col-1, .col-2{
+                width: 100%;
+                justify-content: center;
+            }
+            .col-1{
+                .content{
+                    text-align: center;
+                }
+            }
+            .col-2{
+                .image{
+                    &::after{
+                        bottom: -2rem;
+                        right: 80px;
+                    }
+                    &::before{
+                        top: -2rem;
+                        left: 80px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cards{
+    width: 90%;
+    margin: 5rem auto;
+    @include flexBox(space-between);
+    .card-1{
+        width: 280px;
+        height: 250px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        padding: 2em 1em;
+        color: var(--light-white);
+        box-shadow: 0 0 5px 0 var(--rad);
+        background: linear-gradient(48deg, var(--black), var(--rad) 100%);
+    }
+    .card-2, .card-3, .card-4, .card-5, .card-6{
+        width: 300px;
+        height: 280px;
+        box-shadow: 0 0 20px 0  hsla(348, 89%, 28%, 0.161);
+        border-radius: 15px;
+        padding: 1.5em;
+        position: relative;
+        margin: 2em 0;
+        .icons{
+            width: 55px;
+            height: 55px;
+            position: absolute;
+            top: -30px;
+            background: linear-gradient(48deg, var(--black), var(--rad));
+            border-radius: 50%;
+            @include flexBox(center);
+            color: var(--light-white);
+        }
+        h3{
+            padding: 2rem 0 1rem 0;
+            font-size: 2rem;
+        }
+        p{
+            padding: 0.5rem 0;
+        }
+        a{
+            font-size: 1.1rem;
+            display: block;
+            padding: 1rem 0;
+            color: var(--rad);
+        }
+        &:hover{
+            cursor: pointer;
+            a{
+                letter-spacing: 1px;
+            }
+            .icons{
+                background: linear-gradient(224deg, rgb(0, 0, 0) 0%, rgb(162, 10, 40) 100%);
+                .fa-solid{
+                    transform: translateY(-5px);
+                }
+            }
+        }
+    }
+
+    @include u.breakpoints (apna) {
+        &{
+            flex-direction: column;
+            .card-1{
+                margin: 1rem 0;
+                h1{
+                    font-size: clamp(1.7rem, 1rem + 2vw, 2.5rem);
+                    color: var(--light-white);
+                }
+            }
+            .card-2, .card-3, .card-4, .card-5, .card-6{
+                h3{
+                    font-size: 1.7rem;
+                }
+            }
+        }
+    }
+}
+
+footer{
+    width: 100%;
+    background-color: var(--dark-blue);
+    border-top: 5px solid #5f0618ab;
+    box-shadow: 0px 0px 0px 5px #71071c;
+    @include flexBox(center);
+    .footer__content{
+        width: 90%;
+        @include flexBox(space-between);
+
+        .logo{
+            h1{
+                color: var(--light-white);
+                text-transform: lowercase;
+                font-size: 2rem;
+            }
+        }
+        .copyright{
+            h4{
+                color: var(--light-white);
+                a{
+                    text-decoration: underline;
+                }
+            }
+        }
+        button{
+            width: 120px;
+            height: 40px;
+            border-radius: 30px;
+            background: var(--black);
+            background: linear-gradient(48deg, var(--black), var(--rad));
+            color: var(--light-white);
+            outline: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 1rem 0;
+            outline: 2px solid var(--rad);
+            outline-offset: 2px;
+        }
+        button:hover{
+            background: linear-gradient(235deg, rgb(0, 0, 0) 0%, rgb(162, 10, 40) 100%);
+        }
+    }
+}
